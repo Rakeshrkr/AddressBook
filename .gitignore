@@ -1,6 +1,8 @@
 # Logs #
-########
 *.log
 
 # Dependency directories #
 node_modules/
+
+# Sensitive JSON Data #
+contacts.JSON
