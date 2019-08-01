@@ -2,49 +2,34 @@
 var fs = require("fs");
 var Contacts=[];
  class Contact{
-     constructor(firstName,lastName,address,city,state,zip,phoneNumber){
-         this.firstName = firstName;
-         this.lastName = lastName;
-         this.address = address;
-         this.city = city;
-         this.state = state;
-         this.zip = zip;
-         this.phoneNumber = phoneNumber;
+     constructor(options){
+         this.firstName = options.firstName;
+         this.lastName = options.lastName;
+         this.address = options.address;
+         this.city = options.city;
+         this.state = options.state;
+         this.zip = options.zip;
+         this.phoneNumber = options.phoneNumber;
 
      }
-     getFirstName(){
-         return this.firstName;
-     }
-     getLastName(){
-         return this.lastName;
-     }
-     getAddress(){
-         return this.address;
-     }
-     getCity(){
-         return this.city;
-     }
-     getState(){
-         return this.state;
-     }
-     getZip(){
-         return this.zip;
-     }
-     getPhoneNumber(){
-         return this.phoneNumber;
-     }
 
-     AddContact(Contact){
+     AddContact(){
+         console.log(this.lastName)
          console.log("in Add Contact " + JSON.stringify(Contact))
         Contacts.push(Contact);
         console.log(Contacts)
      }
 
      RemoveContact(i){
-       var  ContactsUpdated = Contacts.splice(i,Contacts.length-1);
-        this.ClearData();
-        Contacts = ContactsUpdated;
-        this.SaveData();
+        
+        //console.log(typeof(parseInt(i)));
+        // parseInt(i);
+        if(typeof(i) == "number" && Contacts.length> i){
+            var  ContactsUpdated = Contacts.splice(i,1);
+            this.SaveData();
+        }else{
+            console.log("Please enter correct index.");
+      }
      }
 
      ClearData(){
@@ -53,7 +38,6 @@ var Contacts=[];
          this.SaveData();
      }
     SaveData(){
-       // console.log("In save data function " + JSON.stringify(Contacts))
        fs.writeFileSync('contacts.json',JSON.stringify(Contacts), 'utf8',function(err){
                console.log(err)	
                    
